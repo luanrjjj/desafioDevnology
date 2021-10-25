@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../../components/Header';
+import { ProductList } from './styles';
 
 interface Product {
   id: number;
@@ -27,6 +29,17 @@ const Home = (): JSX.Element => {
   const [products1, setProducts1] = useState([]);
   const [products2, setProducts2] = useState([]);
 
+  const allProviders = [
+    {
+      provider: 'brazilian_provider',
+      products: products1,
+    },
+    {
+      provider: 'european_provider',
+      products: products2,
+    },
+  ];
+
   useEffect(() => {
     async function loadProducts1() {
       fetch(
@@ -51,8 +64,47 @@ const Home = (): JSX.Element => {
 
   console.log('1', products1);
   console.log('2', products2);
+/*
+ allProviders.map(provider=>{
+    provider.provider=='brazilian_provider'? (provider.products.map((product)=>{
+      console.log('brazilian',product)
+    }))
+   :
+   (
+     provider.products.map((product)=>{
+      console.log('european',product)
+    })
+   )
+    
+  })
+  
+*/
+  return (
+    <>
+      <Header />
+      <ProductList>
+      {allProviders.map(provider=>{
+        if(provider.provider=='brazilian_provider') {
+         return provider.products.map((product:any)=>(
 
-  return <h1>OI</h1>;
+        <li key={product.id}>{product.nome}</li>
+
+         ))
+        } else {
+          return provider.products.map((product:any)=>(
+
+            <li key={product.id}>{product.name}</li>
+    
+             ))
+
+        }
+})}
+        
+        </ProductList>
+  
+      <h1>OI</h1>;
+    </>
+  );
 };
 
 export default Home;
