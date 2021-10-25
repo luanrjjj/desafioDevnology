@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MdAddShoppingCart } from 'react-icons/md';
 import Header from '../../components/Header';
 import { ProductList } from './styles';
 
@@ -64,7 +65,7 @@ const Home = (): JSX.Element => {
 
   console.log('1', products1);
   console.log('2', products2);
-/*
+  /*
  allProviders.map(provider=>{
     provider.provider=='brazilian_provider'? (provider.products.map((product)=>{
       console.log('brazilian',product)
@@ -83,25 +84,36 @@ const Home = (): JSX.Element => {
     <>
       <Header />
       <ProductList>
-      {allProviders.map(provider=>{
-        if(provider.provider=='brazilian_provider') {
-         return provider.products.map((product:any)=>(
+        {allProviders.map((provider) => {
+          if (provider.provider == 'brazilian_provider') {
+            return provider.products.map((product: any) => (
+              <li key={product.id}>
+                <img
+                  src={product.imagem}
+                  
+                />
+                <strong>{product.nome}</strong>
+                <span>{product.preco}</span>
+                <button
+                  type="button"
+                  data-testid="add-product-button"
+                  
+                  >
+                     <div data-testid="cart-product-quantity">
+            <MdAddShoppingCart size={16} color="#FFF" />
+            
+          </div>
 
-        <li key={product.id}>{product.nome}</li>
-
-         ))
-        } else {
-          return provider.products.map((product:any)=>(
-
-            <li key={product.id}>{product.name}</li>
-    
-             ))
-
-        }
-})}
-        
-        </ProductList>
-  
+          <span>ADICIONAR AO CARRINHO</span>Comprar</button>
+              </li>
+            ));
+          } else {
+            return provider.products.map((product: any) => (
+              <li key={product.id}>{product.name}</li>
+            ));
+          }
+        })}
+      </ProductList>
       <h1>OI</h1>;
     </>
   );
